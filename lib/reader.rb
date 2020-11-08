@@ -9,7 +9,7 @@ class Reader
   end
 
   def export
-    File.write(output, imported_braille)
+    File.write(output, braille_to_english)
     puts "Created '#{output}' containing #{remove_newlines.join.length / 6} characters."
   end
 
