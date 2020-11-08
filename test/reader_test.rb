@@ -1,7 +1,7 @@
 require_relative '../test/test_helper'
 require_relative '../lib/reader'
 require_relative '../lib/alphabet'
-class WriterTest < Minitest::Test
+class ReaderTest < Minitest::Test
 
   def setup
     @input_file = './braille.txt'
