@@ -61,8 +61,13 @@ class WriterTest < Minitest::Test
   def test_it_turns_english_into_braille
     writer = Writer.new(@input_file, @output_file)
 
+    writer.stubs(:imported_text).returns("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    expected = "0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.\n................................................................................\n................................................................................\n0.\n..\n..\n"
+    assert_equal expected, writer.english_to_braille
+
     writer.stubs(:imported_text).returns("hello world")
     expected = "0.0.0.0.0....00.0.0.00\n00.00.0..0..00.0000..0\n....0.0.0....00.0.0..."
+    assert_equal ["hello world"], writer.create_new_line(writer.imported_text)
 
     assert_equal expected, writer.english_to_braille
   end
