@@ -10,7 +10,7 @@ class Writer
   end
 
   def export
-    File.write(output, imported_text)
+    File.write(output, english_to_braille)
     puts "Created '#{output}' containing #{imported_text.chars.length} characters."
   end
 
