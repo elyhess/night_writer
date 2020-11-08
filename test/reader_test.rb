@@ -37,4 +37,11 @@ class WriterTest < Minitest::Test
     assert_equal expected, reader.slice_to_chars
   end
 
+  def test_it_converts_braille_to_english
+    reader = Reader.new(@input_file, @output_file)
+    reader.stubs(:slice_to_chars).returns(["0.00..", "0..0..", "0.0.0.", "0.0.0.", "0..00.", "......", ".000.0", "0..00.", "0.000.", "0.0.0.", "00.0.."])
+    expected = "hello world"
+    assert_equal expected, reader.braille_to_english
+  end
+  
 end
