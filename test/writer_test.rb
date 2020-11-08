@@ -33,6 +33,17 @@ class WriterTest < Minitest::Test
     assert_equal true, writer.too_long?(writer.imported_text)
   end
 
+  def test_it_will_seperate_new_line_at_40_chars
+    writer = Writer.new(@input_file, @output_file)
+
+    writer.stubs(:imported_text).returns("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    expected = ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "a"]
+    assert_equal expected, writer.create_new_line(writer.imported_text)
+    writer.stubs(:imported_text).returns("hello world")
+    expected = ["hello world"]
+    assert_equal expected, writer.create_new_line(writer.imported_text)
+  end 
+
   def test_it__converts_lines_to_braille
     writer = Writer.new(@input_file, @output_file)
     writer.stubs(:imported_text).returns("Hello world")
