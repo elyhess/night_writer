@@ -18,5 +18,17 @@ class Writer
     imported_text.length > 40 
   end
 
-
+  def convert_to_braille(line)
+    braille = []
+    line.each_char do |letter|
+    line.each_char.reduce([]) do |braille, letter|
+      if @alpha[letter] == @alpha[letter.downcase]
+        braille << @alpha[letter.downcase]
+      elsif @alpha[letter] == @alpha[letter.upcase]
+        braille << @alpha[letter.downcase]
+      end
+    end
+    braille
+  end
+  
 end
