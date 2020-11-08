@@ -29,11 +29,9 @@ class Reader
   end
 
   def braille_to_english
-    array = []
-    slice_to_chars.each do |char|
-      array << @alpha[char] 
-    end
-    array.join
+    slice_to_chars.reduce([]) do |collector, char|
+      collector << @alpha[char] 
+    end.join
   end
 
 end 
