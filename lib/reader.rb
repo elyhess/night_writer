@@ -19,4 +19,13 @@ class Reader
     end
   end
 
+  def slice_to_chars
+    braille_pairs = remove_newlines.map do |string|
+      string.chars.each_slice(2).to_a
+    end
+    each_line = braille_pairs.transpose.map do |line|
+      line.join
+    end
+  end
+
 end 
