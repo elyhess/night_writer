@@ -18,6 +18,12 @@ class Writer
     imported_text.length > 40 
   end
 
+  def create_new_line(imported_text)
+    imported_text.chars.each_slice(40).map do |array|
+      array.join
+    end
+  end
+
   def convert_to_braille(line)
     braille = []
     line.each_char do |letter|
