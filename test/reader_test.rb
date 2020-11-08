@@ -1,5 +1,5 @@
 require_relative '../test/test_helper'
-require_relative '../lib/writer'
+require_relative '../lib/reader'
 require_relative '../lib/alphabet'
 class WriterTest < Minitest::Test
 
