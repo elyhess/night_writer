@@ -16,5 +16,11 @@ class WriterTest < Minitest::Test
     assert_equal @output_file, writer.output
     assert_instance_of Hash, writer.alpha
   end
-  
+
+  def test_export_and_terminal_output
+    writer = Writer.new(@input_file, @output_file)
+    writer.stubs(:imported_text).returns("hello world")
+    assert_output("Created './braille.txt' containing 11 characters.\n") {writer.export}
+  end
+
 end
