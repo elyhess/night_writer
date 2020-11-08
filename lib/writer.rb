@@ -46,7 +46,15 @@ class Writer
   end
 
   def english_to_braille
-    format_braille(convert_to_braille(imported_text))
+    translation = ""
+    if too_long?(imported_text)
+      create_new_line(imported_text).each do |line|
+        translation += format_braille(convert_to_braille(line)) + "\n"
+      end 
+    elsif !too_long?(imported_text)
+      translation += format_braille(convert_to_braille(imported_text))
+    end 
+    translation
   end
 
 
