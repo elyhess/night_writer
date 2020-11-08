@@ -14,4 +14,9 @@ class Writer
     puts "Created '#{output}' containing #{imported_text.chars.length} characters."
   end
 
+  def too_long?(imported_text)
+    imported_text.length > 40 
+  end
+
+
 end
