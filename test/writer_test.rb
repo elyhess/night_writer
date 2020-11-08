@@ -33,5 +33,11 @@ class WriterTest < Minitest::Test
     assert_equal true, writer.too_long?(writer.imported_text)
   end
 
-
+  def test_it__converts_lines_to_braille
+    writer = Writer.new(@input_file, @output_file)
+    writer.stubs(:imported_text).returns("Hello world")
+    expected = ["0.00..", "0..0..", "0.0.0.", "0.0.0.", "0..00.", "......", ".000.0", "0..00.", "0.000.", "0.0.0.", "00.0.."]
+    assert_equal expected, writer.convert_to_braille(writer.imported_text)
+  end
+  
 end
