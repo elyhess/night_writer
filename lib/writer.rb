@@ -10,7 +10,7 @@ class Writer
   end
 
   def export
-    File.write(output, english_to_braille)
+    File.write(output, imported_text)
     puts "Created '#{output}' containing #{imported_text.chars.length} characters."
   end
 
@@ -21,7 +21,6 @@ class Writer
   def convert_to_braille(line)
     braille = []
     line.each_char do |letter|
-    line.each_char.reduce([]) do |braille, letter|
       if @alpha[letter] == @alpha[letter.downcase]
         braille << @alpha[letter.downcase]
       elsif @alpha[letter] == @alpha[letter.upcase]
@@ -30,5 +29,5 @@ class Writer
     end
     braille
   end
-  
+
 end
