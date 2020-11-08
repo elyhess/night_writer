@@ -30,4 +30,14 @@ class Writer
     braille
   end
 
+  def format_braille(braille_array)
+    letter_pairs = braille_array.map do |string|
+      string.chars.each_slice(2).to_a
+    end
+    each_line = letter_pairs.transpose.map do |line|
+      line.join
+    end.join("\n")
+  end
+
+
 end
