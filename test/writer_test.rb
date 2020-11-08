@@ -39,5 +39,12 @@ class WriterTest < Minitest::Test
     expected = ["0.00..", "0..0..", "0.0.0.", "0.0.0.", "0..00.", "......", ".000.0", "0..00.", "0.000.", "0.0.0.", "00.0.."]
     assert_equal expected, writer.convert_to_braille(writer.imported_text)
   end
-  
+
+  def test_it_will_format_braille
+    writer = Writer.new(@input_file, @output_file)
+    writer.stubs(:convert_to_braille).returns(["0.00..", "0..0..", "0.0.0.", "0.0.0.", "0..00.", "......", ".000.0", "0..00.", "0.000.", "0.0.0.", "00.0.."])
+    expected = "0.0.0.0.0....00.0.0.00\n00.00.0..0..00.0000..0\n....0.0.0....00.0.0..."
+    assert_equal expected, writer.format_braille(writer.convert_to_braille)
+  end
+
 end
