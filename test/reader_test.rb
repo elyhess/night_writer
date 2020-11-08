@@ -4,16 +4,17 @@ require_relative '../lib/alphabet'
 class WriterTest < Minitest::Test
 
   def setup
-    @input_file = './message.txt'
-    @output_file = './braille.txt'
+    @input_file = './braille.txt'
+    @output_file = './original_message.txt'
   end
 
   def test_it_exists_and_has_attributes
-    writer = Writer.new(@input_file, @output_file)
+    reader = Reader.new(@input_file, @output_file)
     
-    assert_instance_of Writer, writer
-    assert_equal @input_file, writer.imported_text
-    assert_equal @output_file, writer.output
-    assert_instance_of Hash, writer.alpha
+    assert_instance_of Reader, reader
+    assert_equal @input_file, reader.imported_braille
+    assert_equal @output_file, reader.output
+    assert_instance_of Hash, reader.alpha
   end
+
 end
