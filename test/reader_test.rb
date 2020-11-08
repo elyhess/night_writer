@@ -23,4 +23,11 @@ class WriterTest < Minitest::Test
     assert_output("Created './original_message.txt' containing 11 characters.\n") {reader.export}
   end
 
+  def test_it_removes_new_lines
+    reader = Reader.new(@input_file, @output_file)
+    reader.stubs(:imported_braille).returns(["0.0.0.0.0....00.0.0.00\n", "00.00.0..0..00.0000..0\n", "....0.0.0....00.0.0..."])
+    expected = ["0.0.0.0.0....00.0.0.00", "00.00.0..0..00.0000..0", "....0.0.0....00.0.0..."]
+    assert_equal expected, reader.remove_newlines
+  end 
+
 end
