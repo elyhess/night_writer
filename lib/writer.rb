@@ -39,5 +39,9 @@ class Writer
     end.join("\n")
   end
 
+  def english_to_braille
+    format_braille(convert_to_braille(imported_text))
+  end
+
 
 end
