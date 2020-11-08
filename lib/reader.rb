@@ -8,4 +8,9 @@ class Reader
     @alpha = Alphabet.key.invert
   end
 
+  def export
+    File.write(output, imported_braille)
+    puts "Created '#{output}' containing #{remove_newlines.join.length / 6} characters."
+  end
+
 end 
