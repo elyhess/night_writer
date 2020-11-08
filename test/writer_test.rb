@@ -23,4 +23,15 @@ class WriterTest < Minitest::Test
     assert_output("Created './braille.txt' containing 11 characters.\n") {writer.export}
   end
 
+  def test_it_knows_if_text_is_too_long
+    writer = Writer.new(@input_file, @output_file)
+
+    writer.stubs(:imported_text).returns("hello world")
+    assert_equal false, writer.too_long?(writer.imported_text)
+
+    writer.stubs(:imported_text).returns("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    assert_equal true, writer.too_long?(writer.imported_text)
+  end
+
+
 end
