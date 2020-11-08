@@ -25,17 +25,15 @@ class Writer
   end
 
   def convert_to_braille(line)
-    braille = []
-    line.each_char do |letter|
+    line.each_char.reduce([]) do |braille, letter|
       if @alpha[letter] == @alpha[letter.downcase]
         braille << @alpha[letter.downcase]
       elsif @alpha[letter] == @alpha[letter.upcase]
         braille << @alpha[letter.downcase]
       end
     end
-    braille
   end
-
+  
   def format_braille(braille_array)
     letter_pairs = braille_array.map do |string|
       string.chars.each_slice(2).to_a
