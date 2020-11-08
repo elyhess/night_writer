@@ -18,9 +18,9 @@ class WriterTest < Minitest::Test
   end
 
   def test_terminal_output
-    writer = Writer.new(@input_file, @output_file)
-    writer.stubs(:imported_text).returns("hello world")
-    assert_output("Created './braille.txt' containing 11 characters.\n") {writer.export}
+    reader = Reader.new(@input_file, @output_file)
+    reader.stubs(:remove_newlines).returns(["0.0.0.0.0....00.0.0.00", "00.00.0..0..00.0000..0", "....0.0.0....00.0.0..."])
+    assert_output("Created './original_message.txt' containing 11 characters.\n") {reader.export}
   end
 
 end
