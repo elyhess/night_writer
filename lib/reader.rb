@@ -1,5 +1,7 @@
 require_relative './alphabet'
+require_relative './transformable'
 class Reader
+  include Transformable
   attr_reader :imported_braille, :output, :alpha
   
   def initialize(input, output)
@@ -21,12 +23,6 @@ class Reader
 
   def new_line(english)
     english.scan(/.{1,80}/).join("\n")
-  end
-
-  def slice_to_pairs(lines)
-    lines.map do |line|
-      line.chars.each_slice(2).to_a
-    end
   end
 
   def slice_to_chars(lines)

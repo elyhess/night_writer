@@ -1,6 +1,7 @@
 require_relative './alphabet'
-
+require_relative './transformable'
 class Writer
+  include Transformable
   attr_reader :imported_text, :output, :alpha
   
   def initialize(input, output)
@@ -33,12 +34,6 @@ class Writer
       end
     end
   end
-  
-  def slice_to_pairs(braille_array)
-    braille_array.map do |string|
-      string.chars.each_slice(2).to_a
-    end
-  end 
 
   def format_braille(braille_array)
     slice_to_pairs(braille_array).transpose.map do |line|
