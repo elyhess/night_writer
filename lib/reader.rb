@@ -45,9 +45,10 @@ class Reader
   end
 
   def braille_to_english
-    slice_to_chars.reduce([]) do |collector, char|
+    english = map_braille(braille_lines).reduce([]) do |collector, char|
       collector << @alpha[char] 
     end.join
+    new_line(english)
   end
 
 end 
