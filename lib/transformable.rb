@@ -1,5 +1,13 @@
 module Transformable
 
+  def new_line(content, amount)
+    if amount == 40 
+      content.scan(/.{1,40}/)
+    else 
+      content.scan(/.{1,80}/).join("\n")
+    end 
+  end
+
   def slice_to_pairs(content)
     content.map do |line|
       line.chars.each_slice(2).to_a
