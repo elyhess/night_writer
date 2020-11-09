@@ -21,10 +21,6 @@ class Reader
     end
   end
 
-  def new_line(english)
-    english.scan(/.{1,80}/).join("\n")
-  end
-
   def slice_to_chars(lines)
     slice_to_pairs(lines).transpose.map do |line|
       line.join
@@ -45,7 +41,7 @@ class Reader
     english = map_braille(braille_lines).reduce([]) do |collector, char|
       collector << @alpha[char] 
     end.join
-    new_line(english)
+    new_line(english, 80)
   end
 
 end 
