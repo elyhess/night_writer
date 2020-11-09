@@ -32,6 +32,18 @@ class Reader
     end
   end
 
+  def map_braille(lines)
+    min, max, range = 0, 2, 3
+    lines.reduce([]) do |collector, line|
+      if braille_lines.count >= 3
+        collector << slice_to_chars(braille_lines[min..max]) unless braille_lines[min..max].nil?
+        min = max + 1
+        max = max + range
+        collector
+      end.flatten
+    end
+  end
+
   def braille_to_english
     slice_to_chars.reduce([]) do |collector, char|
       collector << @alpha[char] 
