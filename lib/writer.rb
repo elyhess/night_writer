@@ -1,6 +1,7 @@
 require_relative './alphabet'
-
+require_relative './transformable'
 class Writer
+  include Transformable
   attr_reader :imported_text, :output, :alpha
   
   def initialize(input, output)
@@ -18,12 +19,6 @@ class Writer
     imported_text.length > 40 
   end
 
-  def create_new_line(imported_text)
-    imported_text.chars.each_slice(40).map do |array|
-      array.join
-    end
-  end
-
   def convert_to_braille(line)
     line.each_char.reduce([]) do |braille, letter|
       if @alpha[letter] == @alpha[letter.downcase]
@@ -33,18 +28,13 @@ class Writer
       end
     end
   end
-  
-  def format_braille(braille_array)
-    letter_pairs = braille_array.map do |string|
-      string.chars.each_slice(2).to_a
-    end
-    each_line = letter_pairs.transpose.map do |line|
-      line.join
-    end.join("\n")
+
+  def format_braille(content)
+    format(content).join("\n")
   end
 
   def english_to_braille
-    create_new_line(imported_text).reduce("") do |translation, line|
+    new_line(imported_text, 40).reduce("") do |translation, line|
       if too_long?(imported_text)
         translation += (format_braille(convert_to_braille(line)) + "\n")
       else 

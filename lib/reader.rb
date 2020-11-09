@@ -1,5 +1,7 @@
 require_relative './alphabet'
+require_relative './transformable'
 class Reader
+  include Transformable
   attr_reader :imported_braille, :output, :alpha
   
   def initialize(input, output)
@@ -19,36 +21,21 @@ class Reader
     end
   end
 
-  def new_line(english)
-    english.scan(/.{1,80}/).join("\n")
-  end
-
-  def slice_to_chars(lines)
-    braille_pairs = lines.map do |line|
-      line.chars.each_slice(2).to_a
-    end
-    each_line = braille_pairs.transpose.map do |line|
-      line.join
-    end
-  end
-
   def map_braille(lines)
     min, max, range = 0, 2, 3
-    lines.reduce([]) do |collector, line|
-      if braille_lines.count >= 3
-        collector << slice_to_chars(braille_lines[min..max]) unless braille_lines[min..max].nil?
-        min = max + 1
-        max = max + range
-        collector
-      end.flatten
-    end
+    lines.reduce([]) do |braille_letters, line|
+      braille_letters << format(braille_lines[min..max]) unless braille_lines[min..max].nil?
+      min = max + 1
+      max = max + range
+      braille_letters
+    end.flatten
   end
 
   def braille_to_english
-    english = map_braille(braille_lines).reduce([]) do |collector, char|
-      collector << @alpha[char] 
+    english = map_braille(braille_lines).reduce([]) do |english_words, char|
+      english_words << @alpha[char] 
     end.join
-    new_line(english)
+    new_line(english, 80)
   end
 
 end 
