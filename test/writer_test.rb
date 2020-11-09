@@ -44,6 +44,13 @@ class WriterTest < Minitest::Test
     assert_equal expected, writer.create_new_line(writer.imported_text)
   end 
 
+  def test_it_will_slice_to_pairs
+    writer = Writer.new(@input_file, @output_file)
+    writer.stubs(:convert_to_braille).returns(["0.00..", "0..0..", "0.0.0.", "0.0.0.", "0..00.", "......", ".000.0", "0..00.", "0.000.", "0.0.0.", "00.0.."])
+    expected = [[["0", "."], ["0", "0"], [".", "."]],[["0", "."], [".", "0"], [".", "."]],[["0", "."], ["0", "."], ["0", "."]],[["0", "."], ["0", "."], ["0", "."]],[["0", "."], [".", "0"], ["0", "."]],[[".", "."], [".", "."], [".", "."]],[[".", "0"], ["0", "0"], [".", "0"]],[["0", "."], [".", "0"], ["0", "."]],[["0", "."], ["0", "0"], ["0", "."]],[["0", "."], ["0", "."], ["0", "."]],[["0", "0"], [".", "0"], [".", "."]]]
+    assert_equal expected, writer.slice_to_pairs(writer.convert_to_braille)
+  end
+
   def test_it__converts_lines_to_braille
     writer = Writer.new(@input_file, @output_file)
     writer.stubs(:imported_text).returns("Hello world")
