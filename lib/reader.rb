@@ -23,11 +23,14 @@ class Reader
     english.scan(/.{1,80}/).join("\n")
   end
 
-  def slice_to_chars(lines)
-    braille_pairs = lines.map do |line|
+  def slice_to_pairs(lines)
+    lines.map do |line|
       line.chars.each_slice(2).to_a
     end
-    each_line = braille_pairs.transpose.map do |line|
+  end
+
+  def slice_to_chars(lines)
+    slice_to_pairs(lines).transpose.map do |line|
       line.join
     end
   end
