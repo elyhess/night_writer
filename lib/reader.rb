@@ -23,17 +23,17 @@ class Reader
 
   def map_braille(lines)
     min, max, range = 0, 2, 3
-    lines.reduce([]) do |collector, line|
-      collector << format(braille_lines[min..max]) unless braille_lines[min..max].nil?
+    lines.reduce([]) do |braille_letters, line|
+      braille_letters << format(braille_lines[min..max]) unless braille_lines[min..max].nil?
       min = max + 1
       max = max + range
-      collector
+      braille_letters
     end.flatten
   end
 
   def braille_to_english
-    english = map_braille(braille_lines).reduce([]) do |collector, char|
-      collector << @alpha[char] 
+    english = map_braille(braille_lines).reduce([]) do |english_words, char|
+      english_words << @alpha[char] 
     end.join
     new_line(english, 80)
   end
