@@ -38,10 +38,10 @@ class WriterTest < Minitest::Test
 
     writer.stubs(:imported_text).returns("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
     expected = ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "a"]
-    assert_equal expected, writer.create_new_line(writer.imported_text)
+    assert_equal expected, writer.new_line(writer.imported_text)
     writer.stubs(:imported_text).returns("hello world")
     expected = ["hello world"]
-    assert_equal expected, writer.create_new_line(writer.imported_text)
+    assert_equal expected, writer.new_line(writer.imported_text)
   end 
 
   def test_it_will_slice_to_pairs
@@ -74,7 +74,7 @@ class WriterTest < Minitest::Test
 
     writer.stubs(:imported_text).returns("hello world")
     expected = "0.0.0.0.0....00.0.0.00\n00.00.0..0..00.0000..0\n....0.0.0....00.0.0..."
-    assert_equal ["hello world"], writer.create_new_line(writer.imported_text)
+    assert_equal ["hello world"], writer.new_line(writer.imported_text)
 
     assert_equal expected, writer.english_to_braille
   end

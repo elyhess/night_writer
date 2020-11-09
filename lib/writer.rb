@@ -19,7 +19,7 @@ class Writer
     imported_text.length > 40 
   end
 
-  def create_new_line(imported_text)
+  def new_line(imported_text)
     imported_text.chars.each_slice(40).map do |array|
       array.join
     end
@@ -42,7 +42,7 @@ class Writer
   end
 
   def english_to_braille
-    create_new_line(imported_text).reduce("") do |translation, line|
+    new_line(imported_text).reduce("") do |translation, line|
       if too_long?(imported_text)
         translation += (format_braille(convert_to_braille(line)) + "\n")
       else 
