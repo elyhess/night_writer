@@ -21,16 +21,10 @@ class Reader
     end
   end
 
-  def slice_to_chars(lines)
-    slice_to_pairs(lines).transpose.map do |line|
-      line.join
-    end
-  end
-
   def map_braille(lines)
     min, max, range = 0, 2, 3
     lines.reduce([]) do |collector, line|
-      collector << slice_to_chars(braille_lines[min..max]) unless braille_lines[min..max].nil?
+      collector << format(braille_lines[min..max]) unless braille_lines[min..max].nil?
       min = max + 1
       max = max + range
       collector
