@@ -1,7 +1,7 @@
 require_relative '../test/test_helper'
 require_relative '../lib/reader'
 require_relative '../lib/alphabet'
-class ReaderTest < Minitest::Test
+class WriterTest < Minitest::Test
 
   def setup
     @input_file = './braille.txt'
@@ -43,5 +43,5 @@ class ReaderTest < Minitest::Test
     expected = "hello world"
     assert_equal expected, reader.braille_to_english
   end
-
+  
 end
