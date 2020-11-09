@@ -19,29 +19,29 @@ class ReaderTest < Minitest::Test
 
   def test_terminal_output
     reader = Reader.new(@input_file, @output_file)
-    reader.stubs(:remove_newlines).returns(["0.0.0.0.0....00.0.0.00", "00.00.0..0..00.0000..0", "....0.0.0....00.0.0..."])
+    reader.stubs(:braille_lines).returns(["0.0.0.0.0....00.0.0.00", "00.00.0..0..00.0000..0", "....0.0.0....00.0.0..."])
     assert_output("Created './original_message.txt' containing 11 characters.\n") {reader.export}
   end
 
-  def test_it_removes_new_lines
+  def test_it_adds_braille
     reader = Reader.new(@input_file, @output_file)
     reader.stubs(:imported_braille).returns(["0.0.0.0.0....00.0.0.00\n", "00.00.0..0..00.0000..0\n", "....0.0.0....00.0.0..."])
     expected = ["0.0.0.0.0....00.0.0.00", "00.00.0..0..00.0000..0", "....0.0.0....00.0.0..."]
-    assert_equal expected, reader.remove_newlines
-  end 
+    assert_equal expected, reader.braille_lines
+  end
 
   def test_it_slices_to_chars
     reader = Reader.new(@input_file, @output_file)
-    reader.stubs(:remove_newlines).returns(["0.0.0.0.0....00.0.0.00", "00.00.0..0..00.0000..0", "....0.0.0....00.0.0..."])
+    reader.stubs(:braille_lines).returns(["0.0.0.0.0....00.0.0.00", "00.00.0..0..00.0000..0", "....0.0.0....00.0.0..."])
     expected = ["0.00..", "0..0..", "0.0.0.", "0.0.0.", "0..00.", "......", ".000.0", "0..00.", "0.000.", "0.0.0.", "00.0.."]
-    assert_equal expected, reader.slice_to_chars
+    assert_equal expected, reader.slice_to_chars(reader.braille_lines)
   end
 
   def test_it_converts_braille_to_english
     reader = Reader.new(@input_file, @output_file)
-    reader.stubs(:slice_to_chars).returns(["0.00..", "0..0..", "0.0.0.", "0.0.0.", "0..00.", "......", ".000.0", "0..00.", "0.000.", "0.0.0.", "00.0.."])
+    reader.stubs(:imported_braille).returns(["0.0.0.0.0....00.0.0.00\n", "00.00.0..0..00.0000..0\n", "....0.0.0....00.0.0..."])
     expected = "hello world"
     assert_equal expected, reader.braille_to_english
   end
-  
+
 end
