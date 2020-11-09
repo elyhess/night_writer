@@ -13,7 +13,7 @@ class Reader
     puts "Created '#{output}' containing #{remove_newlines.join.length / 6} characters."
   end
 
-  def remove_newlines
+  def braille_lines
     imported_braille.map do |line|
       line.delete("\n")
     end
