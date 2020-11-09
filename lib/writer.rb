@@ -34,11 +34,14 @@ class Writer
     end
   end
   
-  def format_braille(braille_array)
-    letter_pairs = braille_array.map do |string|
+  def slice_to_pairs(braille_array)
+    braille_array.map do |string|
       string.chars.each_slice(2).to_a
     end
-    each_line = letter_pairs.transpose.map do |line|
+  end 
+
+  def format_braille(braille_array)
+    slice_to_pairs(braille_array).transpose.map do |line|
       line.join
     end.join("\n")
   end
