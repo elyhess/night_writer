@@ -14,4 +14,10 @@ module Transformable
     end
   end
 
+  def format(content)
+    slice_to_pairs(content).transpose.map do |line|
+      line.join
+    end
+  end
+
 end
