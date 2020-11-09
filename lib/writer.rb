@@ -29,10 +29,8 @@ class Writer
     end
   end
 
-  def format_braille(braille_array)
-    slice_to_pairs(braille_array).transpose.map do |line|
-      line.join
-    end.join("\n")
+  def format_braille(content)
+    format(content).join("\n")
   end
 
   def english_to_braille
