@@ -27,10 +27,10 @@ class WriterTest < Minitest::Test
     writer = Writer.new(@input_file, @output_file)
 
     writer.stubs(:imported_text).returns("hello world")
-    assert_equal false, writer.too_long?(writer.imported_text)
+    assert_equal false, writer.too_long?
 
     writer.stubs(:imported_text).returns("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-    assert_equal true, writer.too_long?(writer.imported_text)
+    assert_equal true, writer.too_long?
   end
 
   def test_it_will_seperate_new_line_at_40_chars
