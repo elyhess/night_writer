@@ -15,7 +15,7 @@ class Writer
     puts "Created '#{output}' containing #{imported_text.chars.length} characters."
   end
 
-  def too_long?(imported_text)
+  def too_long?
     imported_text.length > 40 
   end
 
@@ -35,7 +35,7 @@ class Writer
 
   def english_to_braille
     new_line(imported_text, 40).reduce("") do |translation, line|
-      if too_long?(imported_text)
+      if too_long?
         translation += (format_braille(convert_to_braille(line)) + "\n")
       else 
         translation += (format_braille(convert_to_braille(line)))
