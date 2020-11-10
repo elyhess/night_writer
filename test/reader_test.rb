@@ -37,7 +37,7 @@ class ReaderTest < Minitest::Test
     assert_equal expected, reader.slice_to_pairs(reader.braille_lines)
   end
 
-  def test_it_slices_to_chars
+  def test_it_formats
     reader = Reader.new(@input_file, @output_file)
     reader.stubs(:braille_lines).returns(["0.0.0.0.0....00.0.0.00", "00.00.0..0..00.0000..0", "....0.0.0....00.0.0..."])
     expected = ["0.00..", "0..0..", "0.0.0.", "0.0.0.", "0..00.", "......", ".000.0", "0..00.", "0.000.", "0.0.0.", "00.0.."]
